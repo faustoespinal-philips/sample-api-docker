@@ -42,6 +42,7 @@ jobs:
           mkdir -p ./src
           export GO_POST_PROCESS_FILE="/usr/local/bin/gofmt -w"
           docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/api.yaml -g go-gin-server -o /local/src
+          cp ./main.go ./src/
           cd ./src
           echo "----------------------"
           pwd
