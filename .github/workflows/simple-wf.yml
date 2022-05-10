@@ -39,4 +39,11 @@ jobs:
           ls -ls
           echo "----------------------"
           go version
+          mkdir -p ./src
+          docker run openapitools/openapi-generator-cli generate -i api.yaml -g go-gin-server -o ./src
+          cd ./src
+          export CGO_ENABLED=0
+          go get -d -v ./...
+          go build -a -installsuffix cgo -o sample-api-docker .
+          ls -ls
           echo test, and deploy your project.
