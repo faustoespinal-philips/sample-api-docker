@@ -33,7 +33,10 @@ jobs:
       - name: Setup additional needed tools
         run: |
           docker pull openapitools/openapi-generator-cli
-          docker run openapitools/openapi-generator-cli
-          
+          docker run openapitools/openapi-generator-cli list          
+          echo "----------------------"
+          pwd
+          ls -ls
+          echo "----------------------"
           go version
           echo test, and deploy your project.
