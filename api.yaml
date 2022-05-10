@@ -1,0 +1,181 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: Sample server to serve mocks of API
+    url: https://virtserver.swaggerhub.com/PhilipsUltrasound/Device/1.0.0
+info:
+  version: "1.0.0"
+  title: us-device-api
+  description: System API for U/S device components
+paths:
+  /hw-component:
+    get:
+      tags:
+        - HwComponent
+      description: returns all registered component
+      operationId: getHwComponent
+      parameters:
+        - in: query
+          name: skip
+          description: number of records to skip
+          schema:
+            type: integer
+            format: int32
+        - in: query
+          name: limit
+          description: max number of records to return
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: All the devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HWComponentInfo'
+    post:
+      tags:
+        - HwComponent
+      operationId: register
+      responses:
+        '200':
+          description: successfully registered HW component
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HWComponentRegistrationInfo'
+    delete:
+      tags:
+        - HwComponent
+      operationId: deleteHw
+      parameters:
+        - in: query
+          name: hwId
+          description: Id of component to delete
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successfully deleted HW component
+  /ultrasound:
+    get:
+      tags:
+        - Ultrasound System
+      operationId: ultrasoundSummary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UltrasoundSummary'
+      x-swagger-router-controller: Environment
+  '/ultrasound/identity':
+    get:
+      tags:
+        - Ultrasound System
+      operationId: getIdentity
+      responses:
+        '200':
+          description: the system identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceIdentity'
+      x-swagger-router-controller: Ultrasound System
+  '/ultrasound/identity-certificate':
+    get:
+      tags:
+        - Ultrasound System
+      operationId: getIdentityCertificate
+      responses:
+        '200':
+          description: the system certificate information for mTLS communication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceCertificate'
+      x-swagger-router-controller: Ultrasound System
+  '/ultrasound/state':
+    get:
+      tags:
+        - Ultrasound System
+      description: Returns summary of current state of components of system.
+      operationId: getSystemState
+      responses:
+        '200':
+          description: Status of the operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceState'
+      x-swagger-router-controller: Ultrasound System
+components:
+  schemas:
+    UltrasoundSummary:
+      type: object
+      properties:
+        zones:
+          type: array
+          items:
+            $ref: '#/components/schemas/HWComponentInfo'
+        identifier:
+          $ref: '#/components/schemas/DeviceIdentity'
+      description: ok
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+          example: everything is ok
+    DeviceIdentity:
+      type: object
+      properties:
+        uuid:
+          type: string
+    DeviceCertificate:
+      type: object
+      properties:
+        type:
+          type: string
+        content:
+          type: string
+    DeviceState:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        lastUpdate:
+          type: string
+          format: date-time
+        level:
+          type: integer
+          format: int32
+    HWComponentInfo:
+      type: object
+      properties:
+        device-type:
+          type: string
+        id:
+          type: string
+          format: uuid
+          example: 0729a580-2240-11e6-9eb5-0002a5d5c51b    
+    HWComponentRegistrationInfo:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/HWComponentInfo'
+        lastUpdate:
+          type: string
+          format: date-time
+
