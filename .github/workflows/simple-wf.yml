@@ -40,8 +40,12 @@ jobs:
           echo "----------------------"
           go version
           mkdir -p ./src
-          docker run openapitools/openapi-generator-cli -v "${PWD}:/local" generate -i /local/api.yaml -g go-gin-server -o /local/src
+          docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/api.yaml -g go-gin-server -o /local/src
           cd ./src
+          echo "----------------------"
+          pwd
+          ls -ls
+          echo "----------------------"
           export CGO_ENABLED=0
           go get -d -v ./...
           go build -a -installsuffix cgo -o sample-api-docker .
