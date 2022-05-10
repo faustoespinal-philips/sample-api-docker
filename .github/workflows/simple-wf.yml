@@ -40,6 +40,7 @@ jobs:
           echo "----------------------"
           go version
           mkdir -p ./src
+          export GO_POST_PROCESS_FILE="/usr/local/bin/gofmt -w"
           docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/api.yaml -g go-gin-server -o /local/src
           cd ./src
           echo "----------------------"
@@ -47,6 +48,8 @@ jobs:
           ls -ls
           echo "----------------------"
           export CGO_ENABLED=0
+          go mod init philips/us/sample-api-docker
+          go mod tidy
           go get -d -v ./...
           go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
