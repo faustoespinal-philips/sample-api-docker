@@ -40,7 +40,7 @@ jobs:
           echo "----------------------"
           go version
           mkdir -p ./src
-          docker run openapitools/openapi-generator-cli generate -i api.yaml -g go-gin-server -o ./src
+          docker run openapitools/openapi-generator-cli -v "${PWD}:/local" generate -i /local/api.yaml -g go-gin-server -o /local/src
           cd ./src
           export CGO_ENABLED=0
           go get -d -v ./...
