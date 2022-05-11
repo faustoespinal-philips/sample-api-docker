@@ -3,4 +3,4 @@ RUN mkdir -p /app
 WORKDIR /app
 ADD ./src/sample-api-docker /app/sample-api-docker
 
-ENTRYPOINT ["/app/sample-api-docker"]
+CMD ["/app/sample-api-docker"]

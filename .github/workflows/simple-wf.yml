@@ -60,6 +60,7 @@ jobs:
           cd ./src
           go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
+          ldd ./sample-api-docker
           echo test, and deploy your project.
       - name: Build the docker image
         run: |
