@@ -68,7 +68,6 @@ jobs:
       - name: Test the docker image
         run: |
           docker run -d -p 8080:8080 --name philips-us-api philips/us/sample-api-docker
-          sleep 3
-          docker ps
-          curl
+          sleep 4
           echo "Done Testing"
+
