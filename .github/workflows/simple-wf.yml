@@ -65,3 +65,10 @@ jobs:
         run: |
           docker build -t philips/us/sample-api-docker .
           docker images
+      - name: Test the docker image
+        run: |
+          docker run -p 8080:8080 philips/us/sample-api-docker &
+          sleep 3
+          docker ps
+          curl
+          echo "Done Testing"
