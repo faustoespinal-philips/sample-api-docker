@@ -54,9 +54,10 @@ jobs:
           go mod init philips/us/sample-api-docker
           go mod tidy
           go get -d -v ./...
+      # Every step starts in the same base directory
       - name: Build the code
         run: |
-          pwd
+          cd ./src
           go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
           echo test, and deploy your project.
