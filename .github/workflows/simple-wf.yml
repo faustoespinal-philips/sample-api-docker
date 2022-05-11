@@ -61,3 +61,7 @@ jobs:
           go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
           echo test, and deploy your project.
+      - name: Build the docker image
+        run: |
+          docker build -t philips/us/sample-api-docker .
+          docker images
