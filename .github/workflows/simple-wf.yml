@@ -67,7 +67,7 @@ jobs:
           docker images
       - name: Test the docker image
         run: |
-          docker run -p 8080:8080 philips/us/sample-api-docker &
+          docker run -d -p 8080:8080 --name philips-us-api philips/us/sample-api-docker
           sleep 3
           docker ps
           curl
