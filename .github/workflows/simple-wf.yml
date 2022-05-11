@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: api-CICD
 
 # Controls when the workflow will run
 on:
@@ -30,25 +30,23 @@ jobs:
       - run: go version
 
       # Runs a single command using the runners shell
-      - name: Sample API docker build script
-        run: echo "Starting build...."
+      - name: Go environment
+        run: go env
 
       # Runs a set of commands using the runners shell
-      - name: Setup additional needed tools
+      - name: Auto-generate code using openapi-generator
         run: |
           docker pull openapitools/openapi-generator-cli
           docker run openapitools/openapi-generator-cli list          
-          echo "----------------------"
-          pwd
-          ls -ls
-          echo "----------------------"
-          go version
           mkdir -p ./src
           export GO_POST_PROCESS_FILE="/usr/local/bin/gofmt -w"
           docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate -i /local/api.yaml -g go-gin-server -o /local/src
           sudo cp ./main.go ./src/
+      - name: Install go dependencies
+        run: |
           cd ./src
           echo "----------------------"
+          go version
           pwd
           ls -ls
           echo "----------------------"
@@ -56,6 +54,8 @@ jobs:
           go mod init philips/us/sample-api-docker
           go mod tidy
           go get -d -v ./...
+      - name: Build the code
+        run: |
           go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
           echo test, and deploy your project.
