@@ -57,7 +57,8 @@ jobs:
       - name: Build the code
         run: |
           cd ./src
-          go build -a -o sample-api-docker .
+          export CGO_ENABLED=0
+          go build -a -installsuffix cgo -o sample-api-docker .
           ls -ls
           ldd ./sample-api-docker
           echo test, and deploy your project.
