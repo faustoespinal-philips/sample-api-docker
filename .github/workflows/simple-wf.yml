@@ -50,7 +50,6 @@ jobs:
           pwd
           ls -ls
           echo "----------------------"
-          export CGO_ENABLED=0
           go mod init philips/us/sample-api-docker
           go mod tidy
           go get -d -v ./...
@@ -58,7 +57,7 @@ jobs:
       - name: Build the code
         run: |
           cd ./src
-          go build -a -installsuffix cgo -o sample-api-docker .
+          go build -a -o sample-api-docker .
           ls -ls
           ldd ./sample-api-docker
           echo test, and deploy your project.
