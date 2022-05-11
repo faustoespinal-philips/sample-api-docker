@@ -70,5 +70,10 @@ jobs:
           docker run -d -p 8080:8080 --name philips-us-api philips/us/sample-api-docker
           sleep 4
           docker ps
+          echo "----------------------------------------------------"
+          curl -v -X GET http://localhost:8080/PhilipsUltrasound/Device/1.0.0/hw-component
+          echo "----------------------------------------------------"
+          curl -v -X GET http://localhost:8080/PhilipsUltrasound/Device/1.0.0/ultrasound
+          echo "----------------------------------------------------"
           echo "Done Testing"
 
