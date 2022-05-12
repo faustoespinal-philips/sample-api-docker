@@ -15,7 +15,10 @@
 # vendor/
 
 **/go-gin-server/**
-**/src/go/**
+**/src/go/model_**
+**/src/go/routers**
 **/src/api/**
 **/src/.openapi-generator/**
 **/src/Dockerfile
+**/src/go.*
+**/src/sample-api-docker
