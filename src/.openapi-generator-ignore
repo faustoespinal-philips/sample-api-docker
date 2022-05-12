@@ -24,5 +24,4 @@
 
 # Ignore this file since it has the right package name
 main.go
-api_hw_component.go
-api_ultrasound_system.go
+go/api_*.go
