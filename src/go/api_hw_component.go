@@ -10,9 +10,8 @@
 package openapi
 
 import (
+	"encoding/json"
 	"net/http"
-
-	"philips/us/sample-api-docker/impl"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,10 +23,24 @@ func DeleteHw(c *gin.Context) {
 
 // GetHwComponent -
 func GetHwComponent(c *gin.Context) {
-	c.JSON(http.StatusOK, impl.GetHwComponent(c))
+	hwInfo := US_GetHwComponent()
+	jsonText, err := json.Marshal(hwInfo)
+	if err == nil {
+		var m map[string]interface{}
+		json.Unmarshal(jsonText, &m)
+		c.JSON(http.StatusOK, m)
+	}
+	c.JSON(http.StatusInternalServerError, "Could not deserialize")
 }
 
 // Register -
 func Register(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{})
+	hwRegInfo := US_Register()
+	jsonText, err := json.Marshal(hwRegInfo)
+	if err == nil {
+		var m map[string]interface{}
+		json.Unmarshal(jsonText, &m)
+		c.JSON(http.StatusOK, m)
+	}
+	c.JSON(http.StatusInternalServerError, "Could not deserialize")
 }
