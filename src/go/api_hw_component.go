@@ -29,6 +29,7 @@ func GetHwComponent(c *gin.Context) {
 		var m map[string]interface{}
 		json.Unmarshal(jsonText, &m)
 		c.JSON(http.StatusOK, m)
+		return
 	}
 	c.JSON(http.StatusInternalServerError, "Could not deserialize")
 }
@@ -41,6 +42,7 @@ func Register(c *gin.Context) {
 		var m map[string]interface{}
 		json.Unmarshal(jsonText, &m)
 		c.JSON(http.StatusOK, m)
+		return
 	}
 	c.JSON(http.StatusInternalServerError, "Could not deserialize")
 }
